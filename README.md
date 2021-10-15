@@ -63,4 +63,4 @@ hence this vuedropzone if fully relaible to use and to manage the file uploading
 
 ## for more refernce please check and watch the demo video link given below:-
 
-https://www.loom.com/share/c9eb87ead55c42839eb5478a7f200827
+https://www.loom.com/share/ce0b377eee9e4f6a8f2db4437fe7bd30
