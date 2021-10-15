@@ -61,6 +61,6 @@ hence this vuedropzone if fully relaible to use and to manage the file uploading
 -- it will hover the file details whether it is limited size or it is insufficient too long file.
 -- you can also able to remove the file from the drag and drop zone of vue uploader section by hovering on file you'll be able to see the remove file option.
 
-## for more refernce please check and watch the demo video link given below:
+## for more refernce please check and watch the demo video link given below:-
 
 https://www.loom.com/share/c9eb87ead55c42839eb5478a7f200827
