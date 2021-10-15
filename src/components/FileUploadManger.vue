@@ -33,7 +33,7 @@
     <div class="" v-show="isUploading">
       <vue-dropzone
         id="dropzone"
-        class="bg-gray-100  hover:bg-gray-200 hover:border-gray-200 cursor-pointer hover:text-gray-600 px-4 rounded-md shadow-sm hover:shadow-sm transition-all duration-300"
+        class="bg-gray-100  hover:bg-gray-200 hover:border-gray-200 cursor-pointer hover:text-gray-600 rounded-md shadow-sm hover:shadow-sm transition-all duration-300"
         ref="myVueDropzone"
         :useCustomSlot="true"
         :options="dropzoneOptions"
@@ -104,7 +104,7 @@
           <!-- File details -->
           <div class="flex space-x-6 items:center justify-between">
             <div class="flex items-center space-x-6">
-              <img :src="file.file" alt="" class="w-20 h-20" />
+              <img :src="file.file.dataURL" alt="" class="w-20 h-20" />
 
               <!-- file (name & size) -->
               <div class="">
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="mt-2 font-normal text-gray-400 text-sm">
-                  {{ file.file.size }} MB
+                  {{ getFormateSize(file.file.size) }}
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@
                 </div>
 
                 <div class="mt-2 font-normal text-gray-400 text-sm">
-                  {{ file.file.size }} MB
+                  {{ getFormateSize(file.file.size) }}
                 </div>
               </div>
             </div>
@@ -278,7 +278,7 @@
                 </div>
 
                 <div class="mt-2 font-normal text-gray-400 text-sm">
-                  {{ file.file.size }} MB
+                  {{ getFormateSize(file.file.size) }}
                 </div>
               </div>
             </div>
@@ -318,6 +318,7 @@ export default {
     CheckMarkIcon,
     RetryIcon,
   },
+
   data: function() {
     return {
       dropzoneOptions: {
@@ -449,6 +450,18 @@ export default {
       }
     },
 
+    // format size
+    getFormateSize(fileSizeInBytes) {
+      var i = -1
+      var byteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB']
+      do {
+        fileSizeInBytes = fileSizeInBytes / 1024
+        i++
+      } while (fileSizeInBytes > 1024)
+
+      return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i]
+    },
+
     // Progress bar status
     progressHandler(totaluploadprogress, totalBytes, totalBytesSent) {
       console.log('totaluploadprogress ', totaluploadprogress)
@@ -578,16 +591,16 @@ export default {
   z-index: 1000;
   pointer-events: none;
   position: absolute;
-  height: 40px;
-  left: 34%;
-  top: 24%;
+  height: 16px;
+  left: 31%;
+  top: 30%;
   margin-top: -8px;
   width: 40px;
   margin-left: -40px;
   background: transparent;
   -webkit-transform: scale(1);
   border-radius: 50px;
-  border: 3px solid lightgray;
+  border: 2px solid rgb(152, 151, 151);
   overflow: hidden;
 }
 .dropzone .dz-preview {
@@ -650,5 +663,49 @@ export default {
   top: 35%;
   left: 0;
   display: none;
+}
+
+/* image details  */
+.dropzone .dz-preview.dz-image-preview .dz-details {
+  transition: opacity 0.2s linear;
+}
+
+.vue-dropzone > .dz-preview .dz-details {
+  bottom: 0;
+  top: 0px;
+  color: black;
+  background-color: transparent;
+  transition: opacity 0.2s linear;
+  /* text-align: left; */
+}
+.dropzone .dz-preview .dz-details {
+  z-index: 20;
+  position: absolute;
+  left: 46px;
+  display: block;
+  color: black;
+  opacity: 0;
+  font-size: 13px;
+  min-width: 100%;
+  max-width: 100%;
+  padding: 2em 1em;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 150%;
+}
+.vue-dropzone > .dz-preview .dz-remove {
+  position: relative;
+  z-index: 30;
+  color: black;
+  margin-left: 1px;
+  padding: 6px;
+  border: 2px black solid;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  opacity: 0;
+  margin-top: 26px;
 }
 </style>
